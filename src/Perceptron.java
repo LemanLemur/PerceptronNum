@@ -26,4 +26,5 @@ public class Perceptron {
             weights[i] += err * inputs[i] * 0.1;
         }
     }
+
 }

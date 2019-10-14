@@ -20,7 +20,7 @@ public class Main {
     static JLabel score = new JLabel("Wynik: ");
     static JLabel inLearning = new JLabel("Uczę Się\n");
     static JLabel errorNumber = new JLabel("Procent błędów: ");
-    static private int[] buttonInput = new int[35];
+    static private int[] buttonInput = new int[36];
     static Data[] data;
     static int rn = 10000;
     static int en = 0;
@@ -34,11 +34,15 @@ public class Main {
         for (int i = 0; i < 32; i++) {
             buttonInput[i] = 0;
         }
-        learn();
+        try {
+            learn();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         createWindow();
     }
 
-    static void learn() {
+    static void learn() throws CloneNotSupportedException {
         int life, lastLife;
         Random random = new Random();
         for (int i = 0; i < perceprtons.length; i++) {
@@ -99,7 +103,8 @@ public class Main {
             String st;
             while ((st = br.readLine()) != null) {
                 int[] data = new int[buttonInput.length];
-                int l = 0;
+                data[0] = 1;
+                int l = 1;
                 for (int j = 0; j < st.length(); j++) {
                     char c = st.charAt(j);
                     if (c == '1' || c == '0') {
@@ -132,10 +137,11 @@ public class Main {
         JPanel ans = new JPanel();
         ans.setMinimumSize(new Dimension(200, 200));
         ans.setLayout(new GridLayout(2, 1));
-        ans.add(errorNumber);
+//        ans.add(errorNumber);
         ans.add(score);
 
-        for (int i = 0; i < buttonInput.length; i++) {
+        buttonInput[0] = 1;
+        for (int i = 1; i < buttonInput.length; i++) {
             JButton button = new JButton();
             int buttonNum = i;
             button.addActionListener(ActionEvent -> {
